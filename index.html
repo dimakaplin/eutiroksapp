@@ -43,13 +43,35 @@
 </style>
 <body>
 <div class="container">
-  <div id="eutiroks" class="middle-div">You need to enable JavaScript to run this app.</div>
+  <div id="eutiroks" class="middle-div"></div>
 </div>
 <script>
   var startDate = new Date('2025-03-16T12:00:00')
   var startValue = 75
   function appendText(text) {
     document.getElementById("eutiroks").innerText = text
+  }
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function getMessage(doze) {
+    var messages = [
+            "Для того чтобы сегодня был хороший день нужно выпить #doze мг эутирокса",
+            "Настя, ты самая красивая, я тебя очень люблю, было бы здорово если б ты выпила сегодня #doze мг эутирокса",
+            "Настя, ты кукушка, выпей #doze мг эутирокса",
+            "Наверное ты бы с удовольствием начала утро с завтрака в макдаке, но придется сначала выпить #doze мг эутирокса",
+      "Настюшка Настюшка зачем ты съела а потом запила #doze мг эутирокса",
+      "Вопрос из разряда геральдикию Что ты выберешь - пукать беззвучно или #doze мг эутирокса?",
+      "Настя, у тебя все получится, ты умник, но выпей #doze мг эутирокса",
+      "Утро у Настюшки начинается не с кофе и не с коньяка, и не с пива, и не с вина, а с #doze мг эутирокса",
+      "Я ему раз сказала - он не понимает, я ему два сказала - он не понимает, а вот выпил бы #doze мг эутирокса - все бы с первого раза понял",
+      "Самой лучшей жене нужно выпить #doze мг эутирокса",
+      "Вопрос из разряда геральдики, если бы ты была кассиром ты бы выпила #doze мг эутирокса?",
+      "Желаю тебе доброго утра в выпить #doze мг эутирокса",
+    ]
+    var random = getRandomArbitrary(0, messages.length)
+    return messages[random].replace("#doze", doze)
   }
 
   function getCurrentDoze() {
@@ -69,7 +91,7 @@
       doze = 50
     }
 
-    return "Настя, выпей сегодня " + doze + " мг эутирокса"
+    return getMessage(doze)
   }
   appendText(getCurrentDoze())
 </script>
