@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+          name="description"
+          content="Web site created using create-react-app"
+  />
+  <title>React App</title>
+</head>
+<style>
+  div.outer-div {
+    height: 170px;
+    width: 300px;
+    background-color: lightgray;
+  }
+
+  div.middle-div {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    font-size: 24px;
+  }
+
+  body,
+  html {
+    height: 100%;
+  }
+</style>
+<body>
+<div class="container">
+  <div id="eutiroks" class="middle-div">You need to enable JavaScript to run this app.</div>
+</div>
+<script>
+  var startDate = new Date('2025-03-16T12:00:00')
+  var startValue = 75
+  function appendText(text) {
+    document.getElementById("eutiroks").innerText = text
+  }
+
+  function getCurrentDoze() {
+    var today = new Date()
+    today.setHours(12,0,0,0)
+    startDate.setHours(12,0,0,0)
+    var difference = today.getTime() -  startDate.getTime();
+    var days = Math.ceil(difference / (1000 * 3600 * 24));
+    var doze = 0
+    if (days === 0) {
+      doze = startValue
+    } else if (days === 1) {
+      doze = 50
+    } else if (days % 2 === 0) {
+      doze = 75
+    } else {
+      doze = 50
+    }
+
+    return "Настя, выпей сегодня " + doze + " мг эутирокса"
+  }
+  appendText(getCurrentDoze())
+</script>
+</body>
+</html>
