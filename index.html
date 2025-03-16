@@ -51,8 +51,10 @@
   function appendText(text) {
     document.getElementById("eutiroks").innerText = text
   }
-  function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   function getMessage(doze) {
@@ -68,10 +70,11 @@
       "Я ему раз сказала - он не понимает, я ему два сказала - он не понимает, а вот выпил бы #doze мг эутирокса - все бы с первого раза понял",
       "Самой лучшей жене нужно выпить #doze мг эутирокса",
       "Вопрос из разряда геральдики, если бы ты была кассиром ты бы выпила #doze мг эутирокса?",
-      "Желаю тебе доброго утра в выпить #doze мг эутирокса",
+      "Желаю тебе доброго утра и выпить #doze мг эутирокса",
     ]
-    var random = getRandomArbitrary(0, messages.length)
-    return messages[random].replace("#doze", doze)
+    var random = getRandomInt(0, messages.length)
+    var message = messages[random]
+    return message.replace("#doze", doze)
   }
 
   function getCurrentDoze() {
@@ -91,9 +94,9 @@
       doze = 50
     }
 
-    return getMessage(doze)
+    return doze
   }
-  appendText(getCurrentDoze())
+  appendText(getMessage(getCurrentDoze()))
 </script>
 </body>
 </html>
