@@ -46,8 +46,8 @@
   <div id="eutiroks" class="middle-div"></div>
 </div>
 <script>
-  var startDate = new Date('2025-03-16T12:00:00')
-  var startValue = 75
+  const startDate = new Date('2025-03-16T12:00:00')
+  const startValue = 75
   function appendText(text) {
     document.getElementById("eutiroks").innerText = text
   }
@@ -58,32 +58,35 @@
   }
 
   function getMessage(doze) {
-    var messages = [
+    let messages = [
             "Для того чтобы сегодня был хороший день нужно выпить #doze мг эутирокса",
             "Настя, ты самая красивая, я тебя очень люблю, было бы здорово если б ты выпила сегодня #doze мг эутирокса",
             "Настя, ты кукушка, выпей #doze мг эутирокса",
             "Наверное ты бы с удовольствием начала утро с завтрака в макдаке, но придется сначала выпить #doze мг эутирокса",
       "Настюшка Настюшка зачем ты съела а потом запила #doze мг эутирокса",
-      "Вопрос из разряда геральдикию Что ты выберешь - пукать беззвучно или #doze мг эутирокса?",
+      "Вопрос из разряда геральдики, что ты выберешь - пукать беззвучно или #doze мг эутирокса?",
       "Настя, у тебя все получится, ты умник, но выпей #doze мг эутирокса",
       "Утро у Настюшки начинается не с кофе и не с коньяка, и не с пива, и не с вина, а с #doze мг эутирокса",
       "Я ему раз сказала - он не понимает, я ему два сказала - он не понимает, а вот выпил бы #doze мг эутирокса - все бы с первого раза понял",
       "Самой лучшей жене нужно выпить #doze мг эутирокса",
       "Вопрос из разряда геральдики, если бы ты была кассиром ты бы выпила #doze мг эутирокса?",
       "Желаю тебе доброго утра и выпить #doze мг эутирокса",
+      "Кукушкин дом это место где живут кукушки, а тебе нужно #doze мг эутирокса",
+      "Тебе пора вставать и выпить #doze мг эутирокса",
+      "Ты очень смелая раз каждое утро смотришь на птицу ради #doze мг эутирокса",
     ]
-    var random = getRandomInt(0, messages.length)
-    var message = messages[random]
+    let random = getRandomInt(0, messages.length)
+    let message = messages[random]
     return message.replace("#doze", doze)
   }
 
   function getCurrentDoze() {
-    var today = new Date()
+    let today = new Date()
     today.setHours(12,0,0,0)
     startDate.setHours(12,0,0,0)
-    var difference = today.getTime() -  startDate.getTime();
-    var days = Math.ceil(difference / (1000 * 3600 * 24));
-    var doze = 0
+    let difference = today.getTime() -  startDate.getTime();
+    let days = Math.ceil(difference / (1000 * 3600 * 24));
+    let doze = 0
     if (days === 0) {
       doze = startValue
     } else if (days === 1) {
@@ -97,6 +100,7 @@
     return doze
   }
   appendText(getMessage(getCurrentDoze()))
+
 </script>
 </body>
 </html>
