@@ -75,7 +75,7 @@
       "Тебе пора вставать и выпить #doze мг эутирокса",
       "Ты очень смелая раз каждое утро смотришь на птицу ради #doze мг эутирокса",
     ]
-    let random = getRandomInt(0, messages.length)
+    let random = getRandomInt(0, messages.length - 1)
     let message = messages[random]
     return message.replace("#doze", doze)
   }
@@ -85,7 +85,7 @@
     today.setHours(12,0,0,0)
     startDate.setHours(12,0,0,0)
     let difference = today.getTime() -  startDate.getTime();
-    let days = Math.ceil(difference / (1000 * 3600 * 24));
+    let days = Math.round(difference / (1000 * 3600 * 24));
     let doze = 0
     if (days === 0) {
       doze = startValue
