@@ -16,16 +16,59 @@
     overflow: hidden;
   }
 
-  body::before {
-    content: "";
+  .scene {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-image: url("vyahir-3.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    overflow: hidden;
     animation: breathe 20s ease-in-out infinite alternate;
+  }
+
+  /* Картинка в родном размере 600x350, масштаб под экран (как cover) задает скрипт */
+  .photo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 600px;
+    height: 350px;
+    background-image: url("vyahir-3.jpg");
+    transform: translate(-50%, -50%) scale(var(--cover, 1));
+  }
+
+  /* Веко лежит над глазом в координатах картинки */
+  .eyelid {
+    position: absolute;
+    left: 276px;
+    top: 47px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    filter: blur(1.5px);
+  }
+
+  .eyelid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 20% at 50% 72%, rgba(35, 40, 55, 0.55), transparent 70%),
+      radial-gradient(circle at 45% 30%, rgb(104, 121, 154), rgb(80, 92, 122) 75%);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .eyelid.blink::before {
+    animation: blink 0.22s ease-in-out;
+  }
+
+  @keyframes blink {
+    0%, 100% {
+      transform: scaleY(0);
+    }
+    45%, 55% {
+      transform: scaleY(1);
+    }
   }
 
   div.middle-div {
@@ -64,7 +107,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    body::before,
+    .scene,
     div.middle-div {
       animation: none;
     }
@@ -86,6 +129,11 @@
   }
 </style>
 <body>
+<div class="scene">
+  <div class="photo">
+    <div class="eyelid" id="eyelid"></div>
+  </div>
+</div>
 <div class="container">
   <div id="eutiroks" class="middle-div"></div>
 </div>
@@ -118,6 +166,15 @@
       "Кукушкин дом это место где живут кукушки, а тебе нужно #doze мг эутирокса",
       "Тебе пора вставать и выпить #doze мг эутирокса",
       "Ты очень смелая раз каждое утро смотришь на птицу ради #doze мг эутирокса",
+      "Большой голубь следит за тобой, выпей пожалуйста #doze мг эутирокса",
+      "Настя, голубь тебя не любит, но все равно пришел напомнить про #doze мг эутирокса",
+      "Вопрос из разряда геральдики, что страшнее - голубь на весь экран или забыть выпить #doze мг эутирокса?",
+      "Настюшка не боится голубей, Настюшка просто уважительно держит дистанцию и пьет #doze мг эутирокса",
+      "Голубь моргнул - значит пора выпить #doze мг эутирокса, если не выпьешь он моргнет еще раз",
+      "Хочешь чтобы голубь исчез с экрана? Есть только один способ - #doze мг эутирокса",
+      "Биг Мак, картошка фри, кола и #doze мг эутирокса, но эутирокс первым и натощак",
+      "Настя, море никуда не денется, макдак тоже, а вот #doze мг эутирокса надо выпить прямо сейчас",
+      "Вопрос из разряда геральдики, если бы на море были голуби вместо чаек ты бы поехала? Сначала выпей #doze мг эутирокса",
     ]
     let random = getRandomInt(0, messages.length - 1)
     let message = messages[random]
@@ -144,6 +201,33 @@
     return doze
   }
   appendText(getMessage(getCurrentDoze()))
+
+  const photoWidth = 600
+  const photoHeight = 350
+  const blinkClass = "blink"
+  const eyelid = document.getElementById("eyelid")
+
+  function fitPhoto() {
+    let cover = Math.max(window.innerWidth / photoWidth, window.innerHeight / photoHeight)
+    document.documentElement.style.setProperty("--cover", cover)
+  }
+
+  function scheduleBlink() {
+    setTimeout(function () {
+      eyelid.classList.add(blinkClass)
+    }, getRandomInt(2500, 6000))
+  }
+
+  eyelid.addEventListener("animationend", function () {
+    eyelid.classList.remove(blinkClass)
+    scheduleBlink()
+  })
+
+  fitPhoto()
+  window.addEventListener("resize", fitPhoto)
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    scheduleBlink()
+  }
 
 </script>
 </body>
